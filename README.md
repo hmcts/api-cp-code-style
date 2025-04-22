@@ -20,14 +20,36 @@ plugins {
 }
 ```
 
-### 2. Configure Spotless to use the remote formatter
+### 2. Configure Spotless to use the downloaded formatter
+
+The Spotless plugin does not support URLs directly in `configFile`. You must first download the formatter XML into your build directory:
 
 ```groovy
+def formatterUrl = 'https://raw.githubusercontent.com/hmcts/api-cp-code-style/master/config/formatter/eclipse-formatter.xml'
+def formatterPath = "$buildDir/eclipse-formatter.xml"
+
+tasks.register('downloadFormatter') {
+  outputs.file(formatterPath)
+  doLast {
+    def file = new File(formatterPath)
+    file.parentFile.mkdirs()
+    file.text = new URL(formatterUrl).text
+  }
+}
+
 spotless {
   java {
     removeUnusedImports()
-    eclipse().configFile('https://raw.githubusercontent.com/hmcts/api-cp-code-style/master/config/formatter/eclipse-formatter.xml')
+    eclipse().configFile(formatterPath)
   }
+}
+
+tasks.named('spotlessApply') {
+  dependsOn tasks.named('downloadFormatter')
+}
+
+tasks.named('spotlessJava') {
+  dependsOn tasks.named('downloadFormatter')
 }
 ```
 
