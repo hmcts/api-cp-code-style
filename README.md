@@ -25,7 +25,7 @@ plugins {
 The Spotless plugin does not support URLs directly in `configFile`. You must first download the formatter XML into your build directory:
 
 ```groovy
-def formatterUrl = 'https://raw.githubusercontent.com/hmcts/api-cp-code-style/master/config/formatter/eclipse-formatter.xml'
+def formatterUrl = 'https://raw.githubusercontent.com/hmcts/api-cp-code-style/main/config/formatter/eclipse-formatter.xml'
 def formatterPath = "$buildDir/eclipse-formatter.xml"
 
 tasks.register('downloadFormatter') {
