@@ -16,7 +16,7 @@ In your `build.gradle`:
 
 ```groovy
 plugins {
-  id 'com.diffplug.spotless' version '7.0.3'
+  id 'com.diffplug.spotless' version '7.X.X'
 }
 ```
 
@@ -59,6 +59,6 @@ tasks.named('spotlessJava') {
 gradle spotlessApply
 ```
 
-## 🔒 Licence
+## License
 
-This repository is open-sourced under the MIT License.
+This project is licensed under the [MIT License](LICENSE).
